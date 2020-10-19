@@ -1,0 +1,73 @@
+type Query {
+    "students list of the academy"
+    students: [Student!]!
+    "information of student of the academy selected by ID"
+    student(id: ID!): Student!
+    "courses list of the academy"
+    courses: [Course!]!
+    "information of course of the academy selected by ID"
+    course(id: ID!): Course!
+}
+
+type Mutation {
+    "add new course i the academy"
+    courseAdd(course: CourseInput!): Course!
+    courseUpdate(course: CourseInput!): Course!
+    courseDelete(id: ID!): Course!
+}
+
+input CourseInput {
+    id: ID
+    title: String!
+    description: String!
+    clases: Int!
+    time: Float!
+    logo: String!
+    level: Level!
+    path: String!
+    teacher: String!
+}
+
+input StudentInput {
+    id: ID
+    name: String!
+    email: String!
+    website: String
+}
+
+"information of the students"
+type Student {
+    id: ID!
+    name: String!
+    email: String!
+    website: String
+    courses: [Course!]!
+}
+
+type Course { "information of the course"
+    id: ID!
+    title: String!
+    description: String!
+    clases: Int!
+    time: Float!
+    logo: String!
+    level: Level!
+    path: String!
+    teacher: String!
+    students: [Student]
+    reviews: [Review!]!
+}
+
+enum Level { "list of level to the select"
+    ALL
+    ROOKIE
+    MEDIUM
+    EXPERT
+}
+
+type Review { "information of the review"
+    id: ID!
+    name: String!
+    point: Float!
+    comment: String
+}
